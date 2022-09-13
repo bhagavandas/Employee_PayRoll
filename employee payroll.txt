@@ -2,3 +2,32 @@
 mysql> create database payroll_service;
 Query OK, 1 row affected (0.01 sec)
 
+mysql> show database;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'database' at line 1
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| classroom          |
+| db                 |
+| information_schema |
+| mysql              |
+| payroll_service    |
+| performance_schema |
+| sakila             |
+| students           |
+| sys                |
+| world              |
++--------------------+
+10 rows in set (0.01 sec)
+
+mysql> use payroll_service;
+Database changed
+mysql> create table employee_payroll (id int auto_increment, name varchar(20), salary double, start_date date primary key(id));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(id))' at line 1
+mysql> create table employee_payroll (id int auto_increment, name varchar(20), salary double, start_date date primary key'(id)');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''(id)')' at line 1
+mysql> create table employee_payroll (id int auto_increment, name varchar(20), salary double, start_date date, primary key(id));
+Query OK, 0 rows affected (0.04 sec)
+
+
