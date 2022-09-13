@@ -111,3 +111,99 @@ mysql> SELECT salary FROM employee_payroll where start_date between '2020-05-15'
 +--------+
 4 rows in set (0.00 sec)
 
+
+mysql> alter table employee_payroll add gender varchar(10) Not null after name;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee_payroll;
++-----+-------------+--------+--------+------------+
+| id  | name        | gender | salary | start_date |
++-----+-------------+--------+--------+------------+
+| 101 | BhagavanDas |        |  45000 | 2022-05-10 |
+| 102 | Rakesh      |        |  45000 | 2022-05-22 |
+| 103 | Anirban     |        |  55000 | 2022-05-15 |
+| 104 | Ranjith     |        |  60000 | 2022-05-22 |
++-----+-------------+--------+--------+------------+
+4 rows in set (0.00 sec)
+
+mysql> alter table employee_payroll add gender varchar(10) "M" after name;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '"M" after name' at line 1
+mysql> alter table employee_payroll add gender "m" varchar(10) Not null after name;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '"m" varchar(10) Not null after name' at line 1
+mysql> insert into employee_payroll(gender = "M");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '= "M")' at line 1
+mysql> insert into employee_payroll(gender) values("M");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from employee_payroll;
++-----+-------------+--------+--------+------------+
+| id  | name        | gender | salary | start_date |
++-----+-------------+--------+--------+------------+
+| 101 | BhagavanDas |        |  45000 | 2022-05-10 |
+| 102 | Rakesh      |        |  45000 | 2022-05-22 |
+| 103 | Anirban     |        |  55000 | 2022-05-15 |
+| 104 | Ranjith     |        |  60000 | 2022-05-22 |
+| 105 | NULL        | M      |   NULL | NULL       |
++-----+-------------+--------+--------+------------+
+5 rows in set (0.00 sec)
+
+mysql> delete null from empolyee_payroll;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'null from empolyee_payroll' at line 1
+mysql> delete from empolyee_payroll;
+ERROR 1146 (42S02): Table 'payroll_service.empolyee_payroll' doesn't exist
+mysql> delete from empolyee_payroll;
+ERROR 1146 (42S02): Table 'payroll_service.empolyee_payroll' doesn't exist
+mysql> delete from empolyee_payroll where id=105;
+ERROR 1146 (42S02): Table 'payroll_service.empolyee_payroll' doesn't exist
+mysql> delete from empolyee_payroll where id="105";
+ERROR 1146 (42S02): Table 'payroll_service.empolyee_payroll' doesn't exist
+mysql> delete from empolyee_payroll where name = NULL;
+ERROR 1146 (42S02): Table 'payroll_service.empolyee_payroll' doesn't exist
+mysql> delete from empolyee_payroll where name ="NULL";
+ERROR 1146 (42S02): Table 'payroll_service.empolyee_payroll' doesn't exist
+mysql> delete from employee_payroll where name ="NULL";
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from employee_payroll;
++-----+-------------+--------+--------+------------+
+| id  | name        | gender | salary | start_date |
++-----+-------------+--------+--------+------------+
+| 101 | BhagavanDas |        |  45000 | 2022-05-10 |
+| 102 | Rakesh      |        |  45000 | 2022-05-22 |
+| 103 | Anirban     |        |  55000 | 2022-05-15 |
+| 104 | Ranjith     |        |  60000 | 2022-05-22 |
+| 105 | NULL        | M      |   NULL | NULL       |
++-----+-------------+--------+--------+------------+
+5 rows in set (0.00 sec)
+
+mysql> delete from employee_payroll where id=105;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from employee_payroll;
++-----+-------------+--------+--------+------------+
+| id  | name        | gender | salary | start_date |
++-----+-------------+--------+--------+------------+
+| 101 | BhagavanDas |        |  45000 | 2022-05-10 |
+| 102 | Rakesh      |        |  45000 | 2022-05-22 |
+| 103 | Anirban     |        |  55000 | 2022-05-15 |
+| 104 | Ranjith     |        |  60000 | 2022-05-22 |
++-----+-------------+--------+--------+------------+
+4 rows in set (0.00 sec)
+
+mysql> update employee_payroll set gender = 'M';
+Query OK, 4 rows affected (0.00 sec)
+Rows matched: 4  Changed: 4  Warnings: 0
+
+mysql> select * from employee_payroll;
++-----+-------------+--------+--------+------------+
+| id  | name        | gender | salary | start_date |
++-----+-------------+--------+--------+------------+
+| 101 | BhagavanDas | M      |  45000 | 2022-05-10 |
+| 102 | Rakesh      | M      |  45000 | 2022-05-22 |
+| 103 | Anirban     | M      |  55000 | 2022-05-15 |
+| 104 | Ranjith     | M      |  60000 | 2022-05-22 |
++-----+-------------+--------+--------+------------+
+4 rows in set (0.00 sec)
+
+
