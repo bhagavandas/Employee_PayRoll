@@ -61,3 +61,53 @@ mysql> select * from employee_payroll;
 +-----+-------------+--------+------------+
 4 rows in set (0.00 sec)
 
+
+mysql> SELECT salary FROM employee_payroll
+    -> WHERE name = 'Bill’;
+    '> SELECT salary FROM employee_payroll where name = 'salary';
+    '> SELECT salary FROM employee_payroll where name = 'bill';
+    '> ;
+    '>
+    '> exit
+    '> exit;
+    '> ^C
+mysql> SELECT salary FROM employee_payroll where name = 'bill';
+Empty set (0.00 sec)
+
+mysql> SELECT salary FROM employee_payroll;
++--------+
+| salary |
++--------+
+|  45000 |
+|  45000 |
+|  55000 |
+|  60000 |
++--------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT salary FROM employee_payroll where name = 'bill';
+Empty set (0.00 sec)
+
+mysql> SELECT name FROM employee_payroll;
++-------------+
+| name        |
++-------------+
+| BhagavanDas |
+| Rakesh      |
+| Anirban     |
+| Ranjith     |
++-------------+
+4 rows in set (0.00 sec)
+
+
+mysql> SELECT salary FROM employee_payroll where start_date between '2020-05-15' and '2022-06-25';
++--------+
+| salary |
++--------+
+|  45000 |
+|  45000 |
+|  55000 |
+|  60000 |
++--------+
+4 rows in set (0.00 sec)
+
