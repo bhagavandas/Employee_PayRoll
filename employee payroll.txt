@@ -74,6 +74,14 @@ mysql> SELECT salary FROM employee_payroll
 mysql> SELECT salary FROM employee_payroll where name = 'bill';
 Empty set (0.00 sec)
 
+
+
+
+
+
+
+
+
 mysql> SELECT salary FROM employee_payroll;
 +--------+
 | salary |
@@ -284,3 +292,247 @@ mysql> select COUNT(salary) from employee_payroll where gender='F' group by gend
 |             1 |
 +---------------+
 1 row in set (0.00 sec)
+
+
+mysql> alter table employee_payroll add phoneNumber int, address varchar(20), Department varchar(20);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'address varchar(20), Department varchar(20)' at line 1
+mysql> alter table employee_payroll add phoneNumber int,add address varchar(20),add Department varchar(20);
+Query OK, 0 rows affected (0.12 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee_payroll;
++-----+-------------+--------+--------+------------+-------------+---------+------------+
+| id  | name        | gender | salary | start_date | phoneNumber | address | Department |
++-----+-------------+--------+--------+------------+-------------+---------+------------+
+| 101 | BhagavanDas | M      |  45000 | 2022-05-10 |        NULL | NULL    | NULL       |
+| 102 | Rakesh      | M      |  45000 | 2022-05-22 |        NULL | NULL    | NULL       |
+| 103 | Anirban     | M      |  55000 | 2022-05-15 |        NULL | NULL    | NULL       |
+| 104 | Ranjith     | M      |  60000 | 2022-05-22 |        NULL | NULL    | NULL       |
+| 106 | Shruthi     | F      |  75000 | 2022-05-22 |        NULL | NULL    | NULL       |
++-----+-------------+--------+--------+------------+-------------+---------+------------+
+5 rows in set (0.00 sec)
+
+mysql> alter table employee_payroll add phoneNumber intNot Null,add address varchar(20)Not Null,add Department varchar(20)Not Null;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'intNot Null,add address varchar(20)Not Null,add Department varchar(20)Not Null' at line 1
+mysql> alter table employee_payroll add phoneNumber int Not Null,add address varchar(20) Not Null,add Department varchar(20) Not Null;
+ERROR 1060 (42S21): Duplicate column name 'phoneNumber'
+mysql> alter table employee_payroll add phoneNumber int(11) Not Null,add address varchar(20) Not Null,add Department varchar(20) Not Null;
+ERROR 1060 (42S21): Duplicate column name 'phoneNumber'
+mysql> select * from employee_payroll;
++-----+-------------+--------+--------+------------+-------------+---------+------------+
+| id  | name        | gender | salary | start_date | phoneNumber | address | Department |
++-----+-------------+--------+--------+------------+-------------+---------+------------+
+| 101 | BhagavanDas | M      |  45000 | 2022-05-10 |        NULL | NULL    | NULL       |
+| 102 | Rakesh      | M      |  45000 | 2022-05-22 |        NULL | NULL    | NULL       |
+| 103 | Anirban     | M      |  55000 | 2022-05-15 |        NULL | NULL    | NULL       |
+| 104 | Ranjith     | M      |  60000 | 2022-05-22 |        NULL | NULL    | NULL       |
+| 106 | Shruthi     | F      |  75000 | 2022-05-22 |        NULL | NULL    | NULL       |
++-----+-------------+--------+--------+------------+-------------+---------+------------+
+5 rows in set (0.00 sec)
+
+mysql> update phoneNumber from employee_payroll where NULL='Not Null';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from employee_payroll where NULL='Not Null'' at line 1
+mysql> update employee_payroll set phoneNumber='Not Null' where phoneNumber='NULL';
+ERROR 1292 (22007): Truncated incorrect DOUBLE value: 'NULL'
+mysql> update employee_payroll setaddress='Not Null' where address='NULL';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '='Not Null' where address='NULL'' at line 1
+mysql> update employee_payroll set address='Not Null' where address='NULL';
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> update employee_payroll set Department='Not Null' where Department='NULL';
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> select * from employee_payroll;
++-----+-------------+--------+--------+------------+-------------+---------+------------+
+| id  | name        | gender | salary | start_date | phoneNumber | address | Department |
++-----+-------------+--------+--------+------------+-------------+---------+------------+
+| 101 | BhagavanDas | M      |  45000 | 2022-05-10 |        NULL | NULL    | NULL       |
+| 102 | Rakesh      | M      |  45000 | 2022-05-22 |        NULL | NULL    | NULL       |
+| 103 | Anirban     | M      |  55000 | 2022-05-15 |        NULL | NULL    | NULL       |
+| 104 | Ranjith     | M      |  60000 | 2022-05-22 |        NULL | NULL    | NULL       |
+| 106 | Shruthi     | F      |  75000 | 2022-05-22 |        NULL | NULL    | NULL       |
++-----+-------------+--------+--------+------------+-------------+---------+------------+
+5 rows in set (0.00 sec)
+
+mysql> alter table employee_payroll add BasicPay double Not Null,add Deductions double Not Null,add TaxablePay double Not Null, add IncomeTax double Not Null,add NetPay double Not Null;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee_payroll;
++-----+-------------+--------+--------+------------+-------------+---------+------------+----------+------------+------------+-----------+--------+
+| id  | name        | gender | salary | start_date | phoneNumber | address | Department | BasicPay | Deductions | TaxablePay | IncomeTax | NetPay |
++-----+-------------+--------+--------+------------+-------------+---------+------------+----------+------------+------------+-----------+--------+
+| 101 | BhagavanDas | M      |  45000 | 2022-05-10 |        NULL | NULL    | NULL       |        0 |          0 |          0 |         0 |      0 |
+| 102 | Rakesh      | M      |  45000 | 2022-05-22 |        NULL | NULL    | NULL       |        0 |          0 |          0 |         0 |      0 |
+| 103 | Anirban     | M      |  55000 | 2022-05-15 |        NULL | NULL    | NULL       |        0 |          0 |          0 |         0 |      0 |
+| 104 | Ranjith     | M      |  60000 | 2022-05-22 |        NULL | NULL    | NULL       |        0 |          0 |          0 |         0 |      0 |
+| 106 | Shruthi     | F      |  75000 | 2022-05-22 |        NULL | NULL    | NULL       |        0 |          0 |          0 |         0 |      0 |
++-----+-------------+--------+--------+------------+-------------+---------+------------+----------+------------+------------+-----------+--------+
+5 rows in set (0.00 sec)
+
+mysql> insert into employee_payroll(name, gender, salary, start_date, phoneNumber, address, Department, BasicPay, Deductions, TaxablePay, IncomeTax, NetPay) values("Teressa", "F", 75000, "2022-05-18", 9800000000, "Mumbai", "S&M", 75000, 5000, 2500,2500,70000);
+ERROR 1264 (22003): Out of range value for column 'phoneNumber' at row 1
+mysql> insert into employee_payroll(name, gender, salary, start_date, phoneNumber, address, Department, BasicPay, Deductions, TaxablePay, IncomeTax, NetPay) values("Teressa", "F", 75000, "2022-05-18", 980000000, "Mumbai", "S&M", 75000, 5000, 2500,2500,70000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from employee_payroll;
++-----+-------------+--------+--------+------------+-------------+---------+------------+----------+------------+------------+-----------+--------+
+| id  | name        | gender | salary | start_date | phoneNumber | address | Department | BasicPay | Deductions | TaxablePay | IncomeTax | NetPay |
++-----+-------------+--------+--------+------------+-------------+---------+------------+----------+------------+------------+-----------+--------+
+| 101 | BhagavanDas | M      |  45000 | 2022-05-10 |        NULL | NULL    | NULL       |        0 |          0 |          0 |         0 |      0 |
+| 102 | Rakesh      | M      |  45000 | 2022-05-22 |        NULL | NULL    | NULL       |        0 |          0 |          0 |         0 |      0 |
+| 103 | Anirban     | M      |  55000 | 2022-05-15 |        NULL | NULL    | NULL       |        0 |          0 |          0 |         0 |      0 |
+| 104 | Ranjith     | M      |  60000 | 2022-05-22 |        NULL | NULL    | NULL       |        0 |          0 |          0 |         0 |      0 |
+| 106 | Shruthi     | F      |  75000 | 2022-05-22 |        NULL | NULL    | NULL       |        0 |          0 |          0 |         0 |      0 |
+| 107 | Teressa     | F      |  75000 | 2022-05-18 |   980000000 | Mumbai  | S&M        |    75000 |       5000 |       2500 |      2500 |  70000 |
++-----+-------------+--------+--------+------------+-------------+---------+------------+----------+------------+------------+-----------+--------+
+6 rows in set (0.00 sec)
+
+
+mysql> insert into employee_payroll(name, gender, salary, start_date, phoneNumber, address, Department, BasicPay, Deductions, TaxablePay, IncomeTax, NetPay) values("Teressa", "F", 65000, "2022-04-10", 912000000, "Pune", "HR", 65000, 5000, 2500,2500,60000);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select * from employee_payroll;
++-----+-------------+--------+--------+------------+-------------+---------+------------+----------+------------+------------+-----------+--------+
+| id  | name        | gender | salary | start_date | phoneNumber | address | Department | BasicPay | Deductions | TaxablePay | IncomeTax | NetPay |
++-----+-------------+--------+--------+------------+-------------+---------+------------+----------+------------+------------+-----------+--------+
+| 101 | BhagavanDas | M      |  45000 | 2022-05-10 |        NULL | NULL    | NULL       |        0 |          0 |          0 |         0 |      0 |
+| 102 | Rakesh      | M      |  45000 | 2022-05-22 |        NULL | NULL    | NULL       |        0 |          0 |          0 |         0 |      0 |
+| 103 | Anirban     | M      |  55000 | 2022-05-15 |        NULL | NULL    | NULL       |        0 |          0 |          0 |         0 |      0 |
+| 104 | Ranjith     | M      |  60000 | 2022-05-22 |        NULL | NULL    | NULL       |        0 |          0 |          0 |         0 |      0 |
+| 106 | Shruthi     | F      |  75000 | 2022-05-22 |        NULL | NULL    | NULL       |        0 |          0 |          0 |         0 |      0 |
+| 107 | Teressa     | F      |  75000 | 2022-05-18 |   980000000 | Mumbai  | S&M        |    75000 |       5000 |       2500 |      2500 |  70000 |
+| 108 | Teressa     | F      |  65000 | 2022-04-10 |   912000000 | Pune    | HR         |    65000 |       5000 |       2500 |      2500 |  60000 |
++-----+-------------+--------+--------+------------+-------------+---------+------------+----------+------------+------------+-----------+--------+
+7 rows in set (0.00 sec)
+
+
+mysql>  CREATE TABLE address(address_id int, address_name varchar(100) primary key);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql>  INSERT INTO address(address_id,address_name) VALUES   (1,'Kolkata'),
+    -> ^C
+mysql> insert into address(address_id, address_name) values (1, 'Kolkata');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from address;
++------------+--------------+
+| address_id | address_name |
++------------+--------------+
+|          1 | Kolkata      |
++------------+--------------+
+1 row in set (0.00 sec)
+
+mysql> select sum(salary) from employee_payroll where gender='F' group by gender;
++-------------+
+| sum(salary) |
++-------------+
+|      215000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select sum(salary) from employee_payroll where gender='M' group by gender;
++-------------+
+| sum(salary) |
++-------------+
+|      205000 |
++-------------+
+1 row in set (0.00 sec)
+
+
+mysql> select AVG(salary) from employee_payroll where gender='F' group by gender;
++-------------------+
+| AVG(salary)       |
++-------------------+
+| 71666.66666666667 |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> select MIN(salary) from employee_payroll where gender='F' group by gender;
++-------------+
+| MIN(salary) |
++-------------+
+|       65000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select MAX(salary) from employee_payroll where gender='F' group by gender;
++-------------+
+| MAX(salary) |
++-------------+
+|       75000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select COUNT(salary) from employee_payroll where gender='F' group by gender;
++---------------+
+| COUNT(salary) |
++---------------+
+|             3 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> select AVG(salary) from employee_payroll where gender='M' group by gender;
++-------------+
+| AVG(salary) |
++-------------+
+|       51250 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select MIN(salary) from employee_payroll where gender='M' group by gender;
++-------------+
+| MIN(salary) |
++-------------+
+|       45000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select MAX(salary) from employee_payroll where gender='M' group by gender;
++-------------+
+| MAX(salary) |
++-------------+
+|       60000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select COUNT(salary) from employee_payroll where gender='M' group by gender;
++---------------+
+| COUNT(salary) |
++---------------+
+|             4 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> select * from employee_payroll;
++-----+-------------+--------+--------+------------+-------------+---------+------------+----------+------------+------------+-----------+--------+
+| id  | name        | gender | salary | start_date | phoneNumber | address | Department | BasicPay | Deductions | TaxablePay | IncomeTax | NetPay |
++-----+-------------+--------+--------+------------+-------------+---------+------------+----------+------------+------------+-----------+--------+
+| 101 | BhagavanDas | M      |  45000 | 2022-05-10 |   958254522 | Ongole  | NULL       |        0 |          0 |          0 |         0 |      0 |
+| 102 | Rakesh      | M      |  45000 | 2022-05-22 |   958254002 | NULL    | NULL       |        0 |          0 |          0 |         0 |      0 |
+| 103 | Anirban     | M      |  55000 | 2022-05-15 |   958254000 | NULL    | NULL       |        0 |          0 |          0 |         0 |      0 |
+| 104 | Ranjith     | M      |  60000 | 2022-05-22 |   958254000 | NULL    | NULL       |        0 |          0 |          0 |         0 |      0 |
+| 106 | Shruthi     | F      |  75000 | 2022-05-22 |   958254000 | NULL    | NULL       |        0 |          0 |          0 |         0 |      0 |
+| 107 | Teressa     | F      |  75000 | 2022-05-18 |   980000000 | Mumbai  | S&M        |    75000 |       5000 |       2500 |      2500 |  70000 |
+| 108 | Teressa     | F      |  65000 | 2022-04-10 |   912000000 | Pune    | HR         |    65000 |       5000 |       2500 |      2500 |  60000 |
++-----+-------------+--------+--------+------------+-------------+---------+------------+----------+------------+------------+-----------+--------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT salary FROM employee_payroll where start_date between '2020-05-15' and '2022-06-25';
++--------+
+| salary |
++--------+
+|  45000 |
+|  45000 |
+|  55000 |
+|  60000 |
+|  75000 |
+|  75000 |
+|  65000 |
++--------+
+7 rows in set (0.00 sec)
+
+
+
